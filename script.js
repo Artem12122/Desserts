@@ -30,7 +30,7 @@ function renderCards(data) {
           <a href="#" class="card__description">${item.name}</a>
           <p class="card__price">$${item.price.toFixed(2)}</p>
           <div class="card__button__container">
-            <button href="#" class="card__button" data-name="${item.name}">
+            <button href="#" class="card__button card__button-notActive" data-name="${item.name}">
               Add to Cart
             </button>
           </div>

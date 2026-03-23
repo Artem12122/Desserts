@@ -137,18 +137,23 @@ a {
     .card__button {
       width: 100%;
       height: 100%;
-      cursor: pointer;
-      background-color: white;
-      border: 1px solid var(--Rose-400);
+      padding: 4px 16px;
       border-radius: 25px;
       box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.2);
       display: flex;
-      justify-content: center;
       align-items: center;
       gap: 8px;
       transition: all 0.3s ease;
     }
-    .card__button::before {
+    
+    .card__button-notActive {
+      cursor: pointer;
+      border: 1px solid var(--Rose-400);
+      background-color: white;
+      justify-content: center;
+      /* display: none; */
+
+      &::before {
       content: "";
       mask-image: url(../images/icon-add-to-cart.svg);
       width: 22px;
@@ -157,10 +162,60 @@ a {
       background-color: var(--Red);
       mask-size: contain;
       mask-repeat: no-repeat;
-    }
-    .card__button:hover {
+      }
+      &:hover {
       color: var(--Red);
       border-color: var(--Red);
+      }
+    }
+
+    .card__button-active {
+      background-color: var(--Red);
+      border: 1px solid var(--Red);
+      justify-content: space-between;
+      color: white;
+
+      .card__button-active-decrement, .card__button-active-increment {
+        background-color: var(--Red);
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid white;
+        cursor: pointer;
+        transition: all 0.3s ease;
+
+
+
+        &::before {
+          content: "";
+          background-color: white;
+          display: block;
+          transition: all 0.3s ease;
+        }
+
+        &:hover {
+          background-color: white;
+          border-color: var(--Red);
+
+          &::before {
+            background-color: var(--Red);
+          }
+        }
+      }
+
+      .card__button-active-decrement::before {
+        mask-image: url(../images/icon-decrement-quantity.svg);
+        width: 10px;
+        height: 2px;
+      }
+      .card__button-active-increment::before {
+        mask-image: url(../images/icon-increment-quantity.svg);
+        width: 10px;
+        height: 10px;
+      }
     }
 
   }
