@@ -1,7 +1,6 @@
 const container = document.getElementById('articleContent');
 const containerBasket = document.querySelector('aside')
 
-
 let dataCards = [];
 let dataBasket = []
 
@@ -11,11 +10,34 @@ async function fetchDataCards() {
     const data = await response.json();
 
     dataCards = data;
-    renderCards(data);
+    updateUI();
   }
   catch (error) {
     console.error('Error fetching data:', error);
   }
+}
+
+function updateUI() {
+  renderCards(dataCards)
+  renderBasket()
+}
+
+function changeQuantity(name, delta) {
+  const itemInBasket = dataBasket.find(el => el.name === name);
+
+  if(itemInBasket) {
+    itemInBasket.quantity += delta
+    if(itemInBasket.quantity <= 0) {
+      dataBasket = dataBasket.filter(el => el.name !== name)
+    }
+  } else if (delta > 0) {
+    const product = dataCards.find(el => el.name === name)
+    if (product) {
+      dataBasket.push({...product, quantity: 1 })
+    }
+  }
+
+  updateUI()
 }
 
 function renderCards(data) {
@@ -56,20 +78,20 @@ function renderCards(data) {
     `;
     container.insertAdjacentHTML('beforeend', card);
   })
-  // console.log(dataBasket)
 }
 
 function renderBasket() {
   const asideTitleCount = dataBasket.reduce((sum, el) => sum + el.quantity, 0)
   const asideTotalPrice = dataBasket.reduce((sum, el) => sum + (el.price * el.quantity), 0).toFixed(2)
-  containerBasket.innerHTML = ""
 
+  containerBasket.innerHTML = `
+    <h2 class="aside__title">Your Cart 
+      <span class="aside__title__count" id="ordersCount">(${asideTitleCount})</span>
+    </h2>
+  `
 
   if(dataBasket.length === 0) {
     const basket =  `
-      <h2 class="aside__title">Your Cart 
-        <span class="aside__title__count" id="ordersCount">(${asideTitleCount})</span>
-      </h2>
       <div class="order__empty">
         <img class="order__empty__icon" src="./assets/images/illustration-empty-cart.svg" alt="Empty Cart">
         <p class="order__empty__text">
@@ -79,38 +101,6 @@ function renderBasket() {
     `
     containerBasket.insertAdjacentHTML('beforeend', basket)
   } else {
-
-    const asideTitle = `
-      <h2 class="aside__title">Your Cart 
-        <span class="aside__title__count" id="ordersCount">(${asideTitleCount})</span>
-      </h2>
-    `
-
-    const asideConfirm = `
-      <div class="aside__confirm">
-        <div class="aside__confirm__total">
-          <span>Order Total</span>
-          <strong id="totalPrice">
-            $${asideTotalPrice}
-          </strong>
-        </div>
-  
-        <div class="aside__confirm__delivery">
-          <img class="aside__confirm__delivery__icon" src="./assets/images/icon-carbon-neutral.svg" alt="Carbon Neutral">
-          <p class="aside__confirm__delivery__text">
-            This is a 
-            <strong>carbon-neutral</strong>
-            delivery
-          </p>
-        </div>
-  
-        <button class="aside__confirm__button">
-          Confirm Order
-        </button>
-      </div>
-    `
-    containerBasket.insertAdjacentHTML('afterbegin', asideTitle)
-
     dataBasket.forEach(el => {
       const basketItem =`
         <div class="order__content">
@@ -132,69 +122,55 @@ function renderBasket() {
       `
       containerBasket.insertAdjacentHTML('beforeend', basketItem)
     })
+    const asideConfirm = `
+      <div class="aside__confirm">
+        <div class="aside__confirm__total">
+          <span>Order Total</span>
+          <strong id="totalPrice">
+            $${asideTotalPrice}
+          </strong>
+        </div>
+        <div class="aside__confirm__delivery">
+          <img class="aside__confirm__delivery__icon" src="./assets/images/icon-carbon-neutral.svg" alt="Carbon Neutral">
+          <p class="aside__confirm__delivery__text">
+            This is a 
+            <strong>carbon-neutral</strong>
+            delivery
+          </p>
+        </div>
+        <button class="aside__confirm__button">
+          Confirm Order
+        </button>
+      </div>
+    `
     containerBasket.insertAdjacentHTML('beforeend', asideConfirm)
   }
 }
 
-function addToBasketArr (item) {
-  if (dataBasket.some(element => element.name === item.name)) {
-    dataBasket.find(element => element.name === item.name).quantity += 1;
-
-  } else {
-    const itemWithQuantity = { ...item, quantity: 1 };
-    dataBasket.push(itemWithQuantity);
-  }
-
-  renderCards(dataCards)
-}
-
 container.addEventListener('click', (event) => {
+  const btn = event.target.closest('[data-name]')
 
-  if (event.target.closest('.card__button-notActive')) {
-    const name = event.target.dataset.name;
-    const item = dataCards.find(card => card.name === name )
-    
-    addToBasketArr(item);
-    renderBasket()
+  if (!btn) return
+
+  const name = btn.dataset.name
+
+  if (event.target.closest('.card__button-notActive') || event.target.closest('.card__button-active-increment')) {
+    changeQuantity(name, 1)
+  } else if(event.target.closest('.card__button-active-decrement')) {
+    changeQuantity(name, -1)
   }
+})
 
-  if (event.target.closest('.card__button-active-increment')) {
-    const name = event.target.closest('.card__button-active-increment').dataset.name;
-    const item = dataBasket.find(el => el.name === name)
-    item.quantity += 1
-
-    renderCards(dataCards);
-    renderBasket()
-  }
-
-  if (event.target.closest('.card__button-active-decrement')) {
-    const name = event.target.closest('.card__button-active-decrement').dataset.name;
-    const item = dataBasket.find(el => el.name === name)
-    
-    if(item) {
-      item.quantity -= 1
-
-      if(item.quantity === 0) {
-        dataBasket = dataBasket.filter(el => el.name !== name );
-      }
-    }
-
-    renderCards(dataCards);
-    renderBasket()
-  }
-
-});
 containerBasket.addEventListener('click', (event) => {
-  if(event.target.closest(".product__delete")) {
-    const name = event.target.closest('.product__delete').dataset.name
+  const deleteBtn = event.target.closest(".product__delete")
+
+  if(deleteBtn) {
+    const name = deleteBtn.dataset.name
 
     dataBasket = dataBasket.filter(el => el.name !== name)
-
-    renderBasket()
-    renderCards(dataCards);
+    updateUI()
   }
 })
 
 
 fetchDataCards()
-renderBasket()
