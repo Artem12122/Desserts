@@ -237,93 +237,89 @@ a {
     font-weight: 600;
     }
   }
-  .aside__order {
 
-    .order__empty {
-      margin-top: 24px;
+  .order__empty {
+    margin-top: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+
+    .order__empty__icon {
+      width: 128px;
+      height: 128px;
+    }
+    .order__empty__text {
+      font-size: 12px;
+      color: gray;
+    }
+  }
+  .order__content {
+    margin-top: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    .order__content__product {
       display: flex;
-      flex-direction: column;
+      justify-content: space-between;
       align-items: center;
       gap: 16px;
-      display: none;
+      border-bottom: 1px solid var(--Rose-100);
+      padding-bottom: 14px;
 
-      .order__empty__icon {
-        width: 128px;
-        height: 128px;
-      }
-      .order__empty__text {
-        font-size: 12px;
-        color: gray;
-      }
-    }
-    .order__content {
-      margin-top: 24px;
-      display: flex;
-      /* display: none; */
-      flex-direction: column;
-      gap: 16px;
+      .product__content {
 
-      .order__content__product {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        gap: 16px;
-        border-bottom: 1px solid var(--Rose-100);
-        padding-bottom: 14px;
+        .product__content__title {
+          font-size: 14px;
+          color: var(--Rose-900);
+        }
+        .product__content__counter {
+          margin-top: 8px;
+          display: flex;
+          gap: 12px;
+          font-size: 14px;
 
-        .product__content {
-
-          .product__content__title {
-            font-size: 14px;
-            color: var(--Rose-900);
+          .product__content__quantity {
+            color: var(--Red);
           }
-          .product__content__counter {
-            margin-top: 8px;
-            display: flex;
-            gap: 12px;
-            font-size: 14px;
-
-            .product__content__quantity {
-              color: var(--Red);
-            }
-            .product__content__price {
-              color: var(--Rose-300);
-            }
-            .product__content__total {
-              color: var(--Rose-500);
-            }
+          .product__content__price {
+            color: var(--Rose-300);
+          }
+          .product__content__total {
+            color: var(--Rose-500);
           }
         }
-        .product__delete {
-          width: 20px;
-          height: 20px;
-          cursor: pointer;
-          background-color: transparent;
-          border: 1px solid var(--Rose-400);
-          border-radius: 50%;
-          display: flex;
-          justify-content: center;
-          align-items: center;
+      }
+      .product__delete {
+        width: 20px;
+        height: 20px;
+        cursor: pointer;
+        background-color: transparent;
+        border: 1px solid var(--Rose-400);
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: all 0.3s ease;
+
+        &::before {
+          content: "";
+          mask-image: url(../images/icon-remove-item.svg);
+          width: 10px;
+          height: 10px;
+          display: block;
+          background-color: var(--Rose-400);
+          mask-size: contain;
+          mask-repeat: no-repeat;
           transition: all 0.3s ease;
+        }
+
+        &:hover {
+          border-color: var(--Rose-900);
 
           &::before {
-            content: "";
-            mask-image: url(../images/icon-remove-item.svg);
-            width: 10px;
-            height: 10px;
-            display: block;
-            background-color: var(--Rose-400);
-            mask-size: contain;
-            mask-repeat: no-repeat;
-            transition: all 0.3s ease;
-          }
-
-          &:hover {
-            border-color: var(--Rose-900);
-
-            &::before {
-              background-color: var(--Rose-900);
-            }
+            background-color: var(--Rose-900);
           }
         }
       }
@@ -331,7 +327,6 @@ a {
   }
   .aside__confirm {
     display: flex;
-    /* display: none; */
     flex-direction: column;
     gap: 16px;
     margin-top: 24px;
