@@ -1,5 +1,7 @@
 const container = document.getElementById('articleContent');
-const containerBasket = document.querySelector('aside')
+const containerBasket = document.querySelector('.aside')
+const modalBtn = document.getElementById('modalBtn');
+const modal = document.getElementById('modal');
 
 let dataCards = [];
 let dataBasket = []
@@ -38,6 +40,10 @@ function changeQuantity(name, delta) {
   }
 
   updateUI()
+}
+
+function calculateTotal() {
+  return dataBasket.reduce((sum, el) => sum + (el.price * el.quantity), 0).toFixed(2)
 }
 
 function renderCards(data) {
@@ -82,7 +88,6 @@ function renderCards(data) {
 
 function renderBasket() {
   const asideTitleCount = dataBasket.reduce((sum, el) => sum + el.quantity, 0)
-  const asideTotalPrice = dataBasket.reduce((sum, el) => sum + (el.price * el.quantity), 0).toFixed(2)
 
   containerBasket.innerHTML = `
     <h2 class="aside__title">Your Cart 
@@ -125,7 +130,7 @@ function renderBasket() {
         <div class="aside__confirm__total">
           <span>Order Total</span>
           <strong id="totalPrice">
-            $${asideTotalPrice}
+            $${calculateTotal()}
           </strong>
         </div>
         <div class="aside__confirm__delivery">
@@ -145,6 +150,33 @@ function renderBasket() {
   }
 }
 
+function schowModal() {
+  const modalOrdersList = document.querySelector('.modal__orders__container')
+  const modalOrdersTotal = document.querySelector('.total__price')
+
+  modalOrdersList.innerHTML = ''
+
+  const ordersHTML = dataBasket.map(el => `
+    <div class="modal__orders__product">
+      <div class="product__img">
+        <img src="${el.image.thumbnail}" alt="${el.name}">
+      </div>
+      <div class="product__content">
+        <p class="product__content__name">${el.name}</p>
+        <span class="product__content__count">${el.quantity}x</span>
+        <span class="product__content__price">$${el.price.toFixed(2)}</span>
+      </div>
+      <div class="product__total">$${(el.price * el.quantity).toFixed(2)}</div>
+    </div>
+  `).join('')
+
+  modalOrdersList.innerHTML = ordersHTML
+  modalOrdersTotal.textContent = `$${calculateTotal()}`
+
+  modal.classList.add('active')
+  document.body.style.overflow = 'hidden'
+}
+
 container.addEventListener('click', (event) => {
   const btn = event.target.closest('[data-name]')
 
@@ -160,7 +192,8 @@ container.addEventListener('click', (event) => {
 })
 
 containerBasket.addEventListener('click', (event) => {
-  const deleteBtn = event.target.closest(".product__delete")
+  const deleteBtn = event.target.closest('.product__delete')
+  const confirmButton = event.target.closest('.aside__confirm__button')
 
   if(deleteBtn) {
     const name = deleteBtn.dataset.name
@@ -168,6 +201,17 @@ containerBasket.addEventListener('click', (event) => {
     dataBasket = dataBasket.filter(el => el.name !== name)
     updateUI()
   }
+
+  if (confirmButton) {
+    schowModal()
+  }
+})
+
+modalBtn.addEventListener('click', () => {
+  dataBasket = []
+  modal.classList.remove('active')
+  document.body.style.overflow = ''
+  updateUI()
 })
 
 

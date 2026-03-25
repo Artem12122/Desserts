@@ -34,7 +34,7 @@
       Coded by <a href="#">Artem Lavrenko</a>.
     </p>
   </div>
-  <div id="moda" class="modal__overlay">
+  <div id="modal" class="modal__overlay">
     <div class="modal__content">
       <div class="modal__img">
         <img src="./assets/images/icon-order-confirmed.svg" alt="icon-order-confirmed">
@@ -48,23 +48,25 @@
         </p>
       </div>
       <div class="modal__orders">
-        <div class="modal__orders__product">
-          <div class="product__img">
-            <img src="./assets/images/image-baklava-mobile.jpg" alt="">
-          </div>
-          <div class="product__content">
-            <p class="product__content__name">
-              Classic Tiramisu
-            </p>
-            <span class="product__content__count">
-              6x
-            </span>
-            <span class="product__content__price">
-              $5
-            </span>
-          </div>
-          <div class="product__total">
-            $30.00
+        <div class="modal__orders__container">
+          <div class="modal__orders__product">
+            <div class="product__img">
+              <img src="./assets/images/image-baklava-mobile.jpg" alt="">
+            </div>
+            <div class="product__content">
+              <p class="product__content__name">
+                Classic Tiramisu
+              </p>
+              <span class="product__content__count">
+                6x
+              </span>
+              <span class="product__content__price">
+                $5
+              </span>
+            </div>
+            <div class="product__total">
+              $30.00
+            </div>
           </div>
         </div>
         <div class="modal__orders__total">
@@ -72,7 +74,7 @@
           <p class="total__price">$1000.00</p>
         </div>
       </div>
-      <button class="modal__button">
+      <button id="modalBtn" class="modal__button">
         Start New Order
       </button>
     </div>
