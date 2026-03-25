@@ -18,26 +18,6 @@
     <article class="article">
       <h2 class="article__title">Desserts</h2>
       <section class="article__content" id="articleContent">
-        <div class="card" >
-          <a class="card__img">
-            <img src="./assets/images/image-cake-desktop.jpg" alt="Dessert">
-          </a>
-          <div class="card__content">
-            <h3 class="card__title">Wafle</h3>
-            <a href="#" class="card__description">Wafle with Berries</a>
-            <p class="card__price">$5.99</p>
-            <div class="card__button__container">
-              <div class="card__button-active card__button">
-                <button class="card__button-active-decrement"></button>
-                1
-                <button class="card__button-active-increment"></button>
-              </div>
-              <button href="#" class="card__button card__button-notActive">
-                Add to Cart
-              </button>
-            </div>
-          </div>
-        </div>
       </section>
     </article>
     <aside class="aside">
@@ -53,6 +33,49 @@
     <p>
       Coded by <a href="#">Artem Lavrenko</a>.
     </p>
+  </div>
+  <div id="moda" class="modal__overlay">
+    <div class="modal__content">
+      <div class="modal__img">
+        <img src="./assets/images/icon-order-confirmed.svg" alt="icon-order-confirmed">
+      </div>
+      <div class="modal__title__container">
+        <h3 class="modal__title">
+          Order Confirmed
+        </h3>
+        <p class="modal__subtitle">
+          We hope you enjoy your food!
+        </p>
+      </div>
+      <div class="modal__orders">
+        <div class="modal__orders__product">
+          <div class="product__img">
+            <img src="./assets/images/image-baklava-mobile.jpg" alt="">
+          </div>
+          <div class="product__content">
+            <p class="product__content__name">
+              Classic Tiramisu
+            </p>
+            <span class="product__content__count">
+              6x
+            </span>
+            <span class="product__content__price">
+              $5
+            </span>
+          </div>
+          <div class="product__total">
+            $30.00
+          </div>
+        </div>
+        <div class="modal__orders__total">
+          <p class="total__text">Order Total</p>
+          <p class="total__price">$1000.00</p>
+        </div>
+      </div>
+      <button class="modal__button">
+        Start New Order
+      </button>
+    </div>
   </div>
 </body>
 </html>

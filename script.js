@@ -103,21 +103,19 @@ function renderBasket() {
   } else {
     dataBasket.forEach(el => {
       const basketItem =`
-        <div class="order__content">
-          <div class="order__content__product">
-            <div class="product__content">
-              <a class="product__content__title" href="#">
-                ${el.name}
-              </a>
-              <div class="product__content__counter">
-                <span class="product__content__quantity">${el.quantity}x</span>
-                <span class="product__content__price">$${el.price.toFixed(2)}</span>
-                <span class="product__content__total">$${(el.price * el.quantity).toFixed(2)}</span>
-              </div>
+        <div class="order__content__product">
+          <div class="product__content">
+            <a class="product__content__title" href="#">
+              ${el.name}
+            </a>
+            <div class="product__content__counter">
+              <span class="product__content__quantity">${el.quantity}x</span>
+              <span class="product__content__price">$${el.price.toFixed(2)}</span>
+              <span class="product__content__total">$${(el.price * el.quantity).toFixed(2)}</span>
             </div>
-            <button class="product__delete" data-name="${el.name}">
-            </button>
           </div>
+          <button class="product__delete" data-name="${el.name}">
+          </button>
         </div>
       `
       containerBasket.insertAdjacentHTML('beforeend', basketItem)
