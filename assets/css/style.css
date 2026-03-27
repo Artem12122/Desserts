@@ -65,10 +65,13 @@ a {
   padding: 36px 5%;
   display: grid;
   grid-template-columns: 3fr 1fr;
+  grid-template-rows: 1fr;
   gap: 34px;
-
 }
+
 .article {
+  grid-row: 1 / 2;
+  grid-column: 1 / 2;
   display: flex;
   flex-direction: column;
   gap: 24px;
@@ -92,12 +95,16 @@ a {
   .card__img {
     border-radius: 5%;
     overflow: hidden;
+    border: 2px solid transparent;
     
     img {
       width: 100%;
       height: auto;
       display: block;
     }
+  }
+  .card__img.active {
+    border-color: var(--Red);
   }
 
   .card__content {
@@ -124,10 +131,9 @@ a {
       color: var(--Red);
     }
   }
-    .card__button__container {
+  .card__button__container {
     position: absolute;
-    width: 70%;
-    max-width: 180px;
+    width: 78%;
     height: 38px;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -193,6 +199,9 @@ a {
           background-color: white;
           display: block;
           transition: all 0.3s ease;
+          text-align: center;
+          mask-size: contain;
+          mask-repeat: no-repeat;
         }
 
         &:hover {
@@ -221,6 +230,8 @@ a {
 }
 
 .aside {
+  grid-row: 1 / 2;
+  grid-column: 2 / 3;
   background-color: white;
   height: fit-content;
   padding: 20px 14px;
@@ -528,4 +539,110 @@ a {
 @keyframes slideIn {
   from { transform: translateY(50px); opacity: 0; }
   to { transform: translateY(0); opacity: 1; }
+}
+
+@media (max-width: 1024px) {
+  .main {
+    gap: 26px;
+  }
+
+  .article {
+    .article__content {
+      grid-template-columns: 1fr 1fr;
+      gap: 1.4rem;
+    }
+  }
+
+  .card {
+    gap: 26px;
+
+    .card__content {
+      gap: 6px;
+
+      .card__title {
+        font-size: 14px;
+      }
+      .card__description {
+        font-size: 15px;
+      }
+      .card__price {
+        font-size: 15px;
+      }
+    }
+      .card__button__container {
+      height: 36px;
+      top: -26px;
+
+      .card__button {
+        padding: 4px 12px;
+        gap: 6px;
+      }
+      .card__button-notActive {
+        &::before {
+          width: 20px;
+          height: 18px;
+        }
+      }
+      .card__button-active {
+        .card__button-active-decrement, .card__button-active-increment {
+          width: 18px;
+          height: 18px;
+        }
+        .card__button-active-decrement::before {
+          width: 8px;
+        }
+        .card__button-active-increment::before {
+          width: 8px;
+          height: 8px;
+        }
+      }
+    }
+  }
+
+  .aside {
+    padding: 16px 12px;
+    min-width: 255px;
+
+    .aside__title {
+      font-size: 18px;
+    }
+    .order__empty {
+      margin-top: 16px;
+      gap: 14px;
+    }
+    .order__content__product {
+      margin-top: 16px;
+      padding-bottom: 10px;
+
+      .product__delete {
+        width: 16px;
+        height: 16px;
+
+        &::before {
+          width: 8px;
+          height: 8px;
+        }
+      }
+    }
+
+    .aside__confirm {
+      gap: 14px;
+      margin-top: 16px;
+
+      .aside__confirm__delivery {
+        padding: 10px;
+        font-size: 11px;
+        gap: 6px;
+
+        .aside__confirm__delivery__icon {
+          width: 18px;
+          height: 18px;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 786px) {
+
 }

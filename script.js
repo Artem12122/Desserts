@@ -69,7 +69,7 @@ function renderCards(data) {
 
     const card = `
       <div class="card" >
-        <a class="card__img">
+        <a class="card__img ${quantity > 0 ?  'active' : ''}">
           <img src="${item.image.desktop}" alt="Dessert">
         </a>
         <div class="card__content">
