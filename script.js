@@ -56,20 +56,20 @@ function renderCards(data) {
     const cardButton = quantity > 0 
     ?`
       <div class="card__button-active card__button">
-      <button class="card__button-active-decrement" data-name="${item.name}"></button>
+      <button type="button" class="card__button-active-decrement" data-name="${item.name}"></button>
         ${quantity}
-      <button class="card__button-active-increment" data-name="${item.name}"></button>
+      <button type="button" class="card__button-active-increment" data-name="${item.name}"></button>
       </div>
     `
     : `
-      <button href="#" class="card__button card__button-notActive" data-name="${item.name}">
+      <button type="button" class="card__button card__button-notActive" data-name="${item.name}">
         Add to Cart
       </button>
     `;
 
     const card = `
       <div class="card" >
-        <a class="card__img ${quantity > 0 ?  'active' : ''}">
+        <a href="#" class="card__img ${quantity > 0 ?  'active' : ''}">
           <img src="${item.image.desktop}" alt="Dessert">
         </a>
         <div class="card__content">
@@ -119,7 +119,7 @@ function renderBasket() {
               <span class="product__content__total">$${(el.price * el.quantity).toFixed(2)}</span>
             </div>
           </div>
-          <button class="product__delete" data-name="${el.name}">
+          <button type="button" class="product__delete" data-name="${el.name}">
           </button>
         </div>
       `
@@ -141,7 +141,7 @@ function renderBasket() {
             delivery
           </p>
         </div>
-        <button class="aside__confirm__button">
+        <button type="button" class="aside__confirm__button">
           Confirm Order
         </button>
       </div>

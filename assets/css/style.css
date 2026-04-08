@@ -52,20 +52,15 @@ button {
 }
 .attribution a { color: hsl(228, 45%, 44%); }
 
-.body {
+body {
   background-color: var(--Rose-50);
-}
-
-.header, footer {
-  height: 120px;
-  background-color: white;
 }
 
 .main {
   max-width: 1440px;
   min-height: calc(100vh - 255px);
   margin: 0 auto;
-  padding: 36px 5%;
+  padding: 60px 5%;
   display: grid;
   grid-template-columns: 3fr 1fr;
   grid-template-rows: 1fr;
@@ -630,7 +625,7 @@ button {
 
 @media (max-width: 786px) {
   .main {
-    padding: 24px 18px;
+    padding: 54px 18px;
     grid-template-columns: 1fr;
     grid-template-rows: 1fr auto;
     gap: 20px;
@@ -657,9 +652,6 @@ button {
 }
 
 @media (max-width: 480px) {
-  .header, footer {
-    height: 100px;
-  }
 
   .main {
     min-height: calc(100vh - 215px);

@@ -16,7 +16,7 @@
   </header>
   <main class="main">
     <article class="article">
-      <h2 class="article__title">Desserts</h2>
+      <h1 class="article__title">Desserts</h1>
       <section class="article__content" id="articleContent">
       </section>
     </article>
@@ -34,13 +34,13 @@
       Coded by <a href="#">Artem Lavrenko</a>.
     </p>
   </div>
-  <div id="modal" class="modal__overlay">
+  <div id="modal" class="modal__overlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
     <div class="modal__content">
       <div class="modal__img">
         <img src="./assets/images/icon-order-confirmed.svg" alt="icon-order-confirmed">
       </div>
       <div class="modal__title__container">
-        <h3 class="modal__title">
+        <h3 id="modalTitle" class="modal__title">
           Order Confirmed
         </h3>
         <p class="modal__subtitle">
@@ -74,7 +74,7 @@
           <p class="total__price">$1000.00</p>
         </div>
       </div>
-      <button id="modalBtn" class="modal__button">
+      <button type="button" id="modalBtn" class="modal__button">
         Start New Order
       </button>
     </div>
